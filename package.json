@@ -3,13 +3,20 @@
   "version": "1.0.0",
   "description": "Comparing student achievement in relation to distance from their school.",
   "main": "index.js",
-  "scripts": {
-    
-  },
+  "scripts": {},
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "firebase": "^9.0.2"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RAlanWright/student-achievement-comparison.git"
+  },
+  "bugs": {
+    "url": "https://github.com/RAlanWright/student-achievement-comparison/issues"
+  },
+  "homepage": "https://github.com/RAlanWright/student-achievement-comparison#readme"
 }
