@@ -10,7 +10,9 @@
   "dependencies": {
     "firebase": "^9.0.2"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "prettier": "^2.4.0"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/RAlanWright/student-achievement-comparison.git"
