@@ -4,8 +4,8 @@
   "description": "Comparing student achievement in relation to distance from their school.",
   "main": "index.js",
   "scripts": {
-      "format": "prettier --write \"src/**/*.{js,jsx}\"",
-      "lint": "eslint \"src/**/*.{js,jsx}\" --quiet"
+    "format": "prettier --write \"src/**/*.{js,jsx}\"",
+    "lint": "eslint \"src/**/*.{js,jsx}\" --quiet"
   },
   "keywords": [],
   "author": "",
@@ -16,6 +16,7 @@
   "devDependencies": {
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
+    "parcel": "^2.0.0-rc.0",
     "prettier": "^2.4.0"
   },
   "repository": {
