@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "Comparing student achievement in relation to distance from their school.",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "format": "prettier --write \"src/**/*.{js,jsx}\""
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -11,6 +13,8 @@
     "firebase": "^9.0.2"
   },
   "devDependencies": {
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
     "prettier": "^2.4.0"
   },
   "repository": {
