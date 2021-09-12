@@ -1,39 +1,39 @@
 {
-  "name": "gmt-se2",
-  "version": "1.0.0",
-  "description": "Comparing student achievement in relation to distance from their school.",
-  "main": "index.js",
-  "scripts": {
-    "dev": "parcel src/index.html",
-    "format": "prettier --write \"src/**/*.{js, jsx}\"",
-    "lint": "eslint \"src/**/*.{js, jsx}\" --quiet"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "firebase": "^9.0.2",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.15.5",
-    "@babel/preset-react": "^7.14.5",
-    "eslint": "^7.32.0",
-    "eslint-config-prettier": "^8.3.0",
-    "parcel": "^1.12.3",
-    "prettier": "^2.4.0"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/RAlanWright/student-achievement-comparison.git"
-  },
-  "bugs": {
-    "url": "https://github.com/RAlanWright/student-achievement-comparison/issues"
-  },
-  "homepage": "https://github.com/RAlanWright/student-achievement-comparison#readme",
-  "browserslist": [
-    "last 2 Chrome versions",
-    "last 2 Firefox versions"
-  ]
+    "name": "gmt-se2",
+    "version": "1.0.0",
+    "description": "Comparing student achievement in relation to distance from their school.",
+    "main": "index.js",
+    "scripts": {
+        "dev": "parcel src/index.html",
+        "format": "prettier --write \"src/**/*.{js, jsx}\"",
+        "lint": "eslint \"src/**/*.{js, jsx}\" --quiet"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "firebase": "^9.0.2",
+        "react": "^17.0.2",
+        "react-dom": "^17.0.2"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.15.5",
+        "@babel/preset-react": "^7.14.5",
+        "eslint": "^7.32.0",
+        "eslint-config-prettier": "^8.3.0",
+        "parcel": "^1.12.3",
+        "prettier": "^2.4.0"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/RAlanWright/student-achievement-comparison.git"
+    },
+    "bugs": {
+        "url": "https://github.com/RAlanWright/student-achievement-comparison/issues"
+    },
+    "homepage": "https://github.com/RAlanWright/student-achievement-comparison#readme",
+    "browserslist": [
+        "last 2 Chrome versions",
+        "last 2 Firefox versions"
+    ]
 }
