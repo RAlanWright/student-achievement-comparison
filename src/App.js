@@ -1,4 +1,5 @@
 import ReactDOM from 'react';
+import { firestore } from './firebase';
 
 const App = () => {
     return (
