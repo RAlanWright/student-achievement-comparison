@@ -1,5 +1,5 @@
 {
-  "name": "GMT-SE2",
+  "name": "gmt-se2",
   "version": "1.0.0",
   "description": "Comparing student achievement in relation to distance from their school.",
   "main": "index.js",
@@ -21,7 +21,7 @@
     "@babel/preset-react": "^7.14.5",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
-    "parcel": "^2.0.0-rc.0",
+    "parcel": "^1.12.3",
     "prettier": "^2.4.0"
   },
   "repository": {
