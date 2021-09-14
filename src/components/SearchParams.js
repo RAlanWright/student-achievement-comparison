@@ -37,6 +37,10 @@ const SearchParams = () => {
     const [g3, updateG3] = useState('');
 };
 
+useEffect(() => {
+    requestStudents();
+}, []);
+
 // Grab JSON data of CSV stored in Firebase
 // Testing purposes
 async function requestStudents() {
