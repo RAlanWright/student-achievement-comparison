@@ -16,12 +16,16 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
+        "@supabase/grid": "^2.0.0",
+        "@supabase/react-data-grid": "^7.1.0-beta.3",
+        "@supabase/supabase-js": "^1.22.6",
+        "@supabase/ui": "^0.35.0",
         "@testing-library/jest-dom": "^5.14.1",
         "@testing-library/react": "^11.2.7",
         "@testing-library/user-event": "^12.8.3",
-        "@supabase/supabase-js": "^1.22.6",
         "react": "^17.0.2",
         "react-dom": "^17.0.2",
+        "react-query": "^3.23.2",
         "react-scripts": "4.0.3",
         "web-vitals": "^1.1.2"
     },
