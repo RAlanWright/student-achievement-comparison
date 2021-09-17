@@ -1,16 +1,14 @@
 // Import the functions you need from the SDKs you need
 import firebase from 'firebase/app';
-import { getAnalytics } from 'firebase/analytics';
-import 'firebase/firestore';
+import 'firebase/database';
+// import database from 'firebase/database';
 
-// TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
     apiKey: 'AIzaSyBL7_C48_5DuMjMJ1eDRx_xxeB_L-S5-H4',
     authDomain: 'gmt-assignment.firebaseapp.com',
+    databaseURL: 'https://gmt-assignment-default-rtdb.firebaseio.com/',
     projectId: 'gmt-assignment',
     storageBucket: 'gmt-assignment.appspot.com',
     messagingSenderId: '532049500680',
@@ -20,7 +18,8 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = firebase.initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
 
-export const firestore = firebase;
-export default firebase;
+// Initialize database
+const database = firebase.database();
+
+export default { firebase, app, database };
