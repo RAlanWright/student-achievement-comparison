@@ -2,6 +2,7 @@
 import ReactDOM from 'react-dom';
 import { Container, Row, Col } from 'reactstrap';
 import DataFetch from './components/DataFetch';
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 const App = () => {
     return (
@@ -12,7 +13,7 @@ const App = () => {
                         <div className="jumbotron jumbotron-fluid bg-transparent text-gray ">
                             <div className="container">
                                 <h1 className="display-4 d-flex justify-content-center">
-                                    Student Performance Data Set
+                                    Student Achievement Comparison
                                 </h1>
                             </div>
                         </div>
