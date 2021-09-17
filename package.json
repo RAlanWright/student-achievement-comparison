@@ -4,6 +4,10 @@
     "description": "Comparing student achievement in relation to distance from their school.",
     "main": "index.js",
     "scripts": {
+        "start": "react-scripts start",
+        "build": "react-scripts build",
+        "test": "react-scripts test",
+        "eject": "react-scripts eject",
         "dev": "parcel src/index.html",
         "format": "prettier --write \"src/**/*.{js, jsx}\"",
         "lint": "eslint \"src/**/*.{js, jsx}\" --quiet"
@@ -12,9 +16,23 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
-        "firebase": "^9.0.2",
+        "@testing-library/jest-dom": "^5.14.1",
+        "@testing-library/react": "^11.2.7",
+        "@testing-library/user-event": "^12.8.3",
+        "bootstrap": "^5.1.1",
+        "file-saver": "^2.0.5",
+        "firebase": "^6.6.2",
+        "jquery": "^3.6.0",
+        "popper": "^1.0.1",
         "react": "^17.0.2",
-        "react-dom": "^17.0.2"
+        "react-data-export": "^0.6.0",
+        "react-dom": "^17.0.2",
+        "react-query": "^3.23.2",
+        "react-scripts": "4.0.3",
+        "reactstrap": "^8.10.0",
+        "recharts": "^2.1.2",
+        "web-vitals": "^1.1.2",
+        "xlsx": "^0.17.1"
     },
     "devDependencies": {
         "@babel/core": "^7.15.5",
@@ -32,9 +50,16 @@
     "bugs": {
         "url": "https://github.com/RAlanWright/student-achievement-comparison/issues"
     },
-    "homepage": "https://github.com/RAlanWright/student-achievement-comparison#readme",
-    "browserslist": [
-        "last 2 Chrome versions",
-        "last 2 Firefox versions"
-    ]
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 2 chrome version",
+            "last 2 firefox version",
+            "last 2 safari version"
+        ]
+    }
 }
