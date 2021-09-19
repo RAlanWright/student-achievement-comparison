@@ -1,14 +1,14 @@
 import { Component } from 'react';
-import database from '../config/firebase.js';
+import AbsenceGraph from './Absent';
+import AlcoholConsumption from './AlcoholConsumption.js';
+import ExtraPaidClassesGraph from './ExtraPaidClassesGraph';
+import GoOut from './GoOut';
+import HealthGraph from './HealthGraph';
 import InternetGraph from './InternetGraph';
 import PastFailures from './PastFailures';
 import StudyTime from './StudyTime';
-import HealthGraph from './HealthGraph';
 import TravelTime from './TravelTime';
-import AbsenceGraph from './Absent';
-import GoOut from './GoOut';
-import ExtraPaidClassesGraph from './ExtraPaidClassesGraph';
-import AlcoholConsumption from './AlcoholConsumption.js';
+import database from '../config/firebase.js';
 import {
     ButtonDropdown,
     DropdownToggle,
@@ -49,9 +49,6 @@ class DataFetch extends Component {
             noExtraPaidClassesAvg: 0,
             studentCountWithExtraPaidClasses: 0,
             studentCountWithoutExtraPaidClasses: 0,
-            workdayAlcoholCount: {},
-            weekendAlcoholCount: {},
-            noAlcoholCount: {},
             workDayAlcoholAvg: {},
             weekendAlcoholAvg: {},
         };
@@ -106,31 +103,36 @@ class DataFetch extends Component {
         const noInternet = [];
         const hasInternet = [];
 
+        // From queryArray, push item to either hasInternet or noInternet arrays
         queryArray.forEach((item) => {
-            if (item.internet === '"no"') {
-                noInternet.push(item.G3);
-            }
-
             if (item.internet === '"yes"') {
                 hasInternet.push(item.G3);
             }
+            if (item.internet === '"no"') {
+                noInternet.push(item.G3);
+            }
         });
 
-        const sumForNoInternet = noInternet.reduce(reducer);
-
-        const roundedGrade1 =
-            Math.round((sumForNoInternet / noInternet.length) * 10) / 10;
-
+        // Remove commas and add each together
         const sumForInternet = hasInternet.reduce(reducer);
 
-        const roundedGrade2 =
+        // Rounding for decimal accuracy
+        const roundedGrade1 =
             Math.round((sumForInternet / hasInternet.length) * 10) / 10;
 
+        // Remove commas and add each together
+        const sumForNoInternet = noInternet.reduce(reducer);
+
+        // Rounding for decimal accuracy
+        const roundedGrade2 =
+            Math.round((sumForNoInternet / noInternet.length) * 10) / 10;
+
+        // Set state for each property
         this.setState({
-            noInternetAccessAvg: roundedGrade1,
-            studentCountWithoutAccess: noInternet.length,
-            internetAccessAvg: roundedGrade2,
+            internetAccessAvg: roundedGrade1,
             studentCountWithAccess: hasInternet.length,
+            noInternetAccessAvg: roundedGrade2,
+            studentCountWithoutAccess: noInternet.length,
         });
     }
 
@@ -157,12 +159,7 @@ class DataFetch extends Component {
             g3Grade[item.failures].push(item.G3);
         });
 
-        const b = g1Grade[0].map((i) => {
-            return JSON.parse(i);
-        });
-
-        const c = b.reduce((acc, i) => acc + parseInt(JSON.parse(i)), 0);
-
+        // Deal with g1 and g2 being strings rather than numbers by converting to JSON before reducing
         for (const [key, value] of Object.entries(g1Grade)) {
             const g1JSON = g1Grade[key].map((i) => {
                 return JSON.parse(i);
@@ -655,21 +652,6 @@ class DataFetch extends Component {
                 ),
             },
             {
-                name: 'Extra Paid Classes',
-                component: (
-                    <ExtraPaidClassesGraph
-                        extraPaidClassesAvg={this.state.extraPaidClassesAvg}
-                        studentCountWithExtraPaidClasses={
-                            this.state.studentCountWithExtraPaidClasses
-                        }
-                        noExtraPaidClassesAvg={this.state.noExtraPaidClassesAvg}
-                        studentCountWithoutExtraPaidClasses={
-                            this.state.studentCountWithoutExtraPaidClasses
-                        }
-                    />
-                ),
-            },
-            {
                 name: 'Past Failures',
                 component: (
                     <PastFailures
@@ -686,19 +668,6 @@ class DataFetch extends Component {
                     <StudyTime
                         studyTimeGrade={this.state.avgGradeForStudyTime}
                         studentCount={this.state.studentCountForStudyTime}
-                    />
-                ),
-            },
-            {
-                name: 'Alcohol Consumption',
-                component: (
-                    <AlcoholConsumption
-                        g1AverageDalc={this.state.firstPeriodAverageDalc}
-                        g2AverageDalc={this.state.secondPeriodAverageDalc}
-                        g3AverageDalc={this.state.finalPeriodAverageDalc}
-                        g1AverageWalc={this.state.firstPeriodAverageWalc}
-                        g2AverageWalc={this.state.secondPeriodAverageWalc}
-                        g3AverageWalc={this.state.finalPeriodAverageWalc}
                     />
                 ),
             },
@@ -732,6 +701,34 @@ class DataFetch extends Component {
             {
                 name: 'Going Out With Friends',
                 component: <GoOut grade={this.state.goOutAvg} />,
+            },
+            {
+                name: 'Extra Paid Classes',
+                component: (
+                    <ExtraPaidClassesGraph
+                        extraPaidClassesAvg={this.state.extraPaidClassesAvg}
+                        studentCountWithExtraPaidClasses={
+                            this.state.studentCountWithExtraPaidClasses
+                        }
+                        noExtraPaidClassesAvg={this.state.noExtraPaidClassesAvg}
+                        studentCountWithoutExtraPaidClasses={
+                            this.state.studentCountWithoutExtraPaidClasses
+                        }
+                    />
+                ),
+            },
+            {
+                name: 'Alcohol Consumption',
+                component: (
+                    <AlcoholConsumption
+                        g1AverageDalc={this.state.firstPeriodAverageDalc}
+                        g2AverageDalc={this.state.secondPeriodAverageDalc}
+                        g3AverageDalc={this.state.finalPeriodAverageDalc}
+                        g1AverageWalc={this.state.firstPeriodAverageWalc}
+                        g2AverageWalc={this.state.secondPeriodAverageWalc}
+                        g3AverageWalc={this.state.finalPeriodAverageWalc}
+                    />
+                ),
             },
         ];
 
