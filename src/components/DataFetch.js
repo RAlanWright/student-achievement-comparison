@@ -55,8 +55,6 @@ class DataFetch extends Component {
             noAlcoholCount: {},
             workDayAlcoholAvg: {},
             weekendAlcoholAvg: {},
-            noAlcoholAvg: {},
-            alwaysAlcoholAvg: {},
         };
         this.internetAccess = this.internetAccess.bind(this);
         this.handleGraphChange = this.handleGraphChange.bind(this);
