@@ -78,7 +78,7 @@ const ExtraPaidClassesGraph = (props) => {
                                 }
                                 dataKey="averageWithoutExtraPaidClasses"
                                 stackId="a"
-                                fill="#141213"
+                                fill="#AB2439"
                             >
                                 <LabelList
                                     dataKey="showNoExtraPaidClasses"

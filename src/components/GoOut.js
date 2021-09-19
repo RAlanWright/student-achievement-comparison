@@ -1,10 +1,10 @@
-import { RadialBar, RadialBarChart, Legend } from 'recharts';
+import { RadialBar, RadialBarChart, Legend, Tooltip } from 'recharts';
 import { Container, Row, Col } from 'reactstrap';
 
 const GoOut = (props) => {
     const data = [
         {
-            name: '1, very low frequency',
+            name: [1, ', very low frequency'],
             average: props.grade[1],
             fill: '#8884d8',
         },
@@ -24,7 +24,7 @@ const GoOut = (props) => {
             fill: '#82ca9d',
         },
         {
-            name: '5, very high frequency',
+            name: [5, ', very high frequency'],
             average: props.grade[5],
             fill: '#ff6666',
         },
@@ -34,6 +34,16 @@ const GoOut = (props) => {
         top: 50,
         left: 600,
         lineHeight: '24px',
+    };
+    const CustomTooltip = ({ active, payload }) => {
+        if (active && payload && payload.length) {
+            return (
+                <div className="custom-tooltip">
+                    <p className="label">{`${payload[0].value}`}</p>
+                </div>
+            );
+        }
+        return null;
     };
 
     return (
@@ -57,8 +67,8 @@ const GoOut = (props) => {
                     >
                         <RadialBar
                             minAngle={15}
-                            label={{ fill: '#222' }}
-                            background
+                            label={{ fill: '#000' }}
+                            background={{ fill: '#eee' }}
                             clockWise={true}
                             dataKey="average"
                         />
@@ -70,6 +80,7 @@ const GoOut = (props) => {
                             verticalAlign="middle"
                             wrapperStyle={style}
                         />
+                        <Tooltip content={<CustomTooltip />} />
                     </RadialBarChart>
 
                     <p className="h2 d-flex justify-content-center">

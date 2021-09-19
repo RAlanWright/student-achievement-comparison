@@ -15,7 +15,7 @@ import {
 import { Container, Row, Col } from 'reactstrap';
 
 const HealthGraph = (props) => {
-    const colors = ['#000000', '#333333', '  #666666', '#999999', ' #bfbfbf'];
+    const colors = ['#cc0000', '#FF0000', '#ff8205', '#00af00', ' #00c463'];
 
     const data1 = [
         {
@@ -112,7 +112,7 @@ const HealthGraph = (props) => {
                             <Bar
                                 name="1st Period Grade"
                                 dataKey="g1"
-                                fill="#008000"
+                                fill="#007a00"
                                 barSize={70}
                             >
                                 <LabelList dataKey="g1" position="top" />
@@ -121,7 +121,7 @@ const HealthGraph = (props) => {
                             <Bar
                                 name="2nd Period Grade"
                                 dataKey="g2"
-                                fill=" #00b300"
+                                fill=" #00a700"
                                 barSize={70}
                             >
                                 <LabelList dataKey="g2" position="top" />
@@ -130,7 +130,7 @@ const HealthGraph = (props) => {
                             <Bar
                                 name="Final Grade"
                                 dataKey="g3"
-                                fill="#1aff1a"
+                                fill="#00c400"
                                 barSize={70}
                             >
                                 <LabelList dataKey="g3" position="top" />

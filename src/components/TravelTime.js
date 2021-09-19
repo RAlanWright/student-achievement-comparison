@@ -103,11 +103,12 @@ const TravelTime = (props) => {
                             verticalAlign="middle"
                             layout="vertical"
                             align="right"
+                            baground={{ fill: '#000' }}
                         />
                         <Bar
                             name="1st Period Grade"
                             dataKey="g1"
-                            fill=" #0000ff"
+                            fill="#1AE5B3"
                             barSize={70}
                         >
                             <LabelList dataKey="g1" position="top" />
@@ -116,7 +117,7 @@ const TravelTime = (props) => {
                         <Bar
                             name="2nd Period Grade"
                             dataKey="g2"
-                            fill=" #6666ff"
+                            fill="#1AB1E5"
                             barSize={70}
                         >
                             <LabelList dataKey="g2" position="top" />
@@ -125,7 +126,7 @@ const TravelTime = (props) => {
                         <Bar
                             name="Final Grade"
                             dataKey="g3"
-                            fill="#ccccff"
+                            fill="#1AE54E"
                             barSize={70}
                         >
                             <LabelList dataKey="g3" position="top" />

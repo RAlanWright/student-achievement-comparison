@@ -7,7 +7,7 @@ const StudyTime = (props) => {
     const groupThreeStudents = props.studyTimeGrade[3];
     const groupFourStudents = props.studyTimeGrade[4];
 
-    const colors = ['#0a47a9', '#2674f2', ' #6ea3f7', '#010a18'];
+    const colors = ['#6ea3f7', '#2674f2', '#0a47a9', '#1D0AA9'];
 
     const data = [
         {
