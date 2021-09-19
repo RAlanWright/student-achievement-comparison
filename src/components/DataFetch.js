@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import database from '../config/firebase.js';
 import InternetGraph from './InternetGraph';
 import PastFailures from './PastFailures';
@@ -6,16 +6,15 @@ import StudyTime from './StudyTime';
 import HealthGraph from './HealthGraph';
 import TravelTime from './TravelTime';
 import AbsenceGraph from './Absent';
-import Download from './Download';
 import GoOut from './GoOut';
 import ExtraPaidClassesGraph from './ExtraPaidClassesGraph';
+import AlcoholConsumption from './AlcoholConsumption.js';
 import {
     ButtonDropdown,
     DropdownToggle,
     DropdownItem,
     DropdownMenu,
 } from 'reactstrap';
-import AlcoholConsumption from './AlcoholConsumption.js';
 
 /* eslint-disable */
 class DataFetch extends Component {
@@ -276,7 +275,6 @@ class DataFetch extends Component {
             const firstPeriodJSON = firstPeriodGrade[key].map((i) => {
                 return JSON.parse(i);
             });
-            // console.log(firstPeriodJSON);
             const sum = firstPeriodJSON.reduce(
                 (acc, i) => acc + parseInt(JSON.parse(i)),
                 0,
@@ -312,10 +310,6 @@ class DataFetch extends Component {
             const average = sum / value.length;
             finalGrade[key] = Math.round(average * 100) / 100;
         }
-
-        // console.log(`First Period Grade: ${firstPeriodGrade[1]}`);
-        // console.log(`Second Period Grade: ${secondPeriodGrade[1]}`);
-        // console.log(`Final Grade: ${finalGrade[1]}`);
 
         this.setState({
             firstPeriodAverage: firstPeriodGrade,
@@ -375,7 +369,6 @@ class DataFetch extends Component {
             const firstPeriodDalcJSON = firstPeriodGradeDalc[key].map((i) => {
                 return JSON.parse(i);
             });
-            // console.log(firstPeriodDalcJSON);
             const sum = firstPeriodDalcJSON.reduce(
                 (acc, i) => acc + parseInt(JSON.parse(i)),
                 0,
@@ -389,7 +382,6 @@ class DataFetch extends Component {
             const secondPeriodDalcJSON = secondPeriodGradeDalc[key].map((i) => {
                 return JSON.parse(i);
             });
-            // console.log(secondPeriodDalcJSON);
             const sum = secondPeriodDalcJSON.reduce(
                 (acc, i) => acc + parseInt(JSON.parse(i)),
                 0,
@@ -403,7 +395,6 @@ class DataFetch extends Component {
             const finalDalcJSON = finalGradeDalc[key].map((i) => {
                 return JSON.parse(i);
             });
-            // console.log(finalDalcJSON);
             const sum = finalDalcJSON.reduce(
                 (acc, i) => acc + parseInt(JSON.parse(i)),
                 0,
@@ -417,7 +408,6 @@ class DataFetch extends Component {
             const firstPeriodWalcJSON = firstPeriodGradeWalc[key].map((i) => {
                 return JSON.parse(i);
             });
-            // console.log(firstPeriodWalcJSON);
             const sum = firstPeriodWalcJSON.reduce(
                 (acc, i) => acc + parseInt(JSON.parse(i)),
                 0,
@@ -431,7 +421,6 @@ class DataFetch extends Component {
             const secondPeriodWalcJSON = secondPeriodGradeWalc[key].map((i) => {
                 return JSON.parse(i);
             });
-            // console.log(secondPeriodWalcJSON);
             const sum = secondPeriodWalcJSON.reduce(
                 (acc, i) => acc + parseInt(JSON.parse(i)),
                 0,
@@ -445,7 +434,6 @@ class DataFetch extends Component {
             const finalWalcJSON = finalGradeWalc[key].map((i) => {
                 return JSON.parse(i);
             });
-            // console.log(finalWalcJSON);
             const sum = finalWalcJSON.reduce(
                 (acc, i) => acc + parseInt(JSON.parse(i)),
                 0,
@@ -454,10 +442,6 @@ class DataFetch extends Component {
             const average = sum / value.length;
             finalGradeWalc[key] = Math.round(average * 100) / 100;
         }
-
-        // console.log(`First Period Grade: ${firstPeriodGrade[1]}`);
-        // console.log(`Second Period Grade: ${secondPeriodGrade[1]}`);
-        // console.log(`Final Grade: ${finalGrade[1]}`);
 
         this.setState({
             firstPeriodAverageDalc: firstPeriodGradeDalc,
@@ -637,7 +621,6 @@ class DataFetch extends Component {
             Math.round(
                 (sumForExtraPaidClasses / extraPaidClasses.length) * 10,
             ) / 10;
-        console.log(extraPaidClasses);
 
         const sumForNoExtraPaidClasses = noExtraPaidClasses.reduce(reducer);
 
@@ -774,18 +757,6 @@ class DataFetch extends Component {
                         ))}
                     </DropdownMenu>
                 </ButtonDropdown>
-                <Download
-                    noAccessAvg={this.state.noInternetAccessAvg}
-                    studentCountWithoutAccess={
-                        this.state.studentCountWithoutAccess
-                    }
-                    accessAvg={this.state.internetAccessAvg}
-                    studentCountWithAccess={this.state.studentCountWithAccess}
-                    g1Grade={this.state.g1GradeFailure}
-                    g2Grade={this.state.g2GradeFailure}
-                    g3Grade={this.state.g3GradeFailure}
-                    studentCount={this.state.studentCountForPastFailure}
-                />
                 <section>
                     {activeGraphIndex >= 0 ? activeGraph.component : ''}
                 </section>

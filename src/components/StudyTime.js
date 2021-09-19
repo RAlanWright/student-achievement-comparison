@@ -1,4 +1,3 @@
-import React from 'react';
 import { PieChart, Pie, Cell, Tooltip, Legend, Label } from 'recharts';
 import { Container, Row, Col } from 'reactstrap';
 

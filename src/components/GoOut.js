@@ -1,10 +1,4 @@
-/* eslint-disable no-unused-vars */
-import {
-    RadialBar,
-    RadialBarChart,
-    Legend,
-    ResponsiveContainer,
-} from 'recharts';
+import { RadialBar, RadialBarChart, Legend } from 'recharts';
 import { Container, Row, Col } from 'reactstrap';
 
 const GoOut = (props) => {
@@ -43,7 +37,7 @@ const GoOut = (props) => {
     };
 
     return (
-        <ResponsiveContainer className="d-flex justify-content-center">
+        <Container className="d-flex justify-content-center">
             <Row>
                 <Col>
                     <h3 className="title-center">Going Out With Friends</h3>
@@ -83,7 +77,7 @@ const GoOut = (props) => {
                     </p>
                 </Col>
             </Row>
-        </ResponsiveContainer>
+        </Container>
     );
 };
 
