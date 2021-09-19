@@ -128,7 +128,7 @@ const AlcoholConsumption = (props) => {
                             <Bar
                                 name="2nd Period Grade"
                                 dataKey="g2"
-                                fill=" #00b300"
+                                fill=" #00a700"
                                 barSize={50}
                             >
                                 <LabelList dataKey="g2" position="top" />
@@ -137,7 +137,7 @@ const AlcoholConsumption = (props) => {
                             <Bar
                                 name="Final Grade"
                                 dataKey="g3"
-                                fill="#1aff1a"
+                                fill="#00c400"
                                 barSize={50}
                             >
                                 <LabelList dataKey="g3" position="top" />
@@ -190,7 +190,7 @@ const AlcoholConsumption = (props) => {
                             <Bar
                                 name="2nd Period Grade"
                                 dataKey="g2"
-                                fill=" #00b300"
+                                fill=" #00a700"
                                 barSize={50}
                             >
                                 <LabelList dataKey="g2" position="top" />
@@ -199,7 +199,7 @@ const AlcoholConsumption = (props) => {
                             <Bar
                                 name="Final Grade"
                                 dataKey="g3"
-                                fill="#1aff1a"
+                                fill="#00c400"
                                 barSize={50}
                             >
                                 <LabelList dataKey="g3" position="top" />

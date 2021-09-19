@@ -55,22 +55,6 @@ const InternetGraph = (props) => {
 
                             <Tooltip />
                             <Legend />
-                            <Bar
-                                name={
-                                    props.studentCountWithoutAccess +
-                                    ' students w/o internet'
-                                }
-                                dataKey="averageWithoutInternet"
-                                stackId="a"
-                                fill="#7DAB24"
-                                background={{ fill: '#eee' }}
-                                barSize={80}
-                            >
-                                <LabelList
-                                    dataKey="showNoAccess"
-                                    position="top"
-                                />
-                            </Bar>
 
                             <Bar
                                 name={
@@ -79,10 +63,26 @@ const InternetGraph = (props) => {
                                 }
                                 dataKey="averageWithInternet"
                                 stackId="a"
-                                fill="#141213"
+                                fill="#7DAB24"
+                                barSize={80}
+                                background={{ fill: '#eee' }}
                             >
                                 <LabelList
                                     dataKey="showAccess"
+                                    position="top"
+                                />
+                            </Bar>
+                            <Bar
+                                name={
+                                    props.studentCountWithoutAccess +
+                                    ' students w/o internet'
+                                }
+                                dataKey="averageWithoutInternet"
+                                stackId="a"
+                                fill="#AB2439"
+                            >
+                                <LabelList
+                                    dataKey="showNoAccess"
                                     position="top"
                                 />
                             </Bar>
