@@ -44,6 +44,7 @@ const TravelTime = (props) => {
         <Container className="d-flex justify-content-center">
             <Row>
                 <Col>
+                    <h3 className="title-center">Travel Time</h3>
                     <BarChart
                         width={1000}
                         height={400}

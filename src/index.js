@@ -11,7 +11,7 @@ const App = () => {
             <Container fluid>
                 <Row>
                     <Col>
-                        <div className="jumbotron jumbotron-fluid bg-transparent text-gray display-3">
+                        <div className="jumbotron jumbotron-fluid bg-transparent text-gray">
                             <div className="container">
                                 <h1 className="display-4 d-flex justify-content-center">
                                     Student Achievement Comparison
@@ -35,9 +35,4 @@ const App = () => {
 
 export default App;
 
-ReactDOM.render(
-    // <React.StrictMode>
-    <App />,
-    // </React.StrictMode>,
-    document.getElementById('root'),
-);
+ReactDOM.render(<App />, document.getElementById('root'));
