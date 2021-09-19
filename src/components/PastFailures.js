@@ -44,12 +44,13 @@ const PastFailures = (props) => {
         <Container className="d-flex justify-content-center">
             <Row>
                 <Col>
+                    <h3 className="title-center">Past Failuires</h3>
                     <BarChart
                         width={1300}
                         height={500}
                         data={data1}
                         layout="vertical"
-                        margin={{ bottom: 120, left: 30 }}
+                        margin={{ top: 20, bottom: 130, left: 30 }}
                         style={{ fontSize: 20 }}
                     >
                         <CartesianGrid strokeDasharray="3 3" />

@@ -78,6 +78,7 @@ const HealthGraph = (props) => {
             <Container className="d-flex justify-content-center">
                 <Row>
                     <Col>
+                        <h3 className="title-center">Overall Health</h3>
                         <BarChart
                             width={1000}
                             height={400}
@@ -88,7 +89,7 @@ const HealthGraph = (props) => {
                             <CartesianGrid strokeDasharray="3 3" />
                             <XAxis dataKey="name">
                                 <Label
-                                    value="health ranked from the worst, 1, to the best, 5"
+                                    value="health ranked from the worst, 1 to the best, 5"
                                     offset={0}
                                     position="bottom"
                                     style={{ fontSize: 20 }}
@@ -136,6 +137,9 @@ const HealthGraph = (props) => {
                             </Bar>
                         </BarChart>
 
+                        <h3 className="title-center">
+                            Study Time Impact On Health
+                        </h3>
                         <PieChart
                             width={730}
                             height={250}

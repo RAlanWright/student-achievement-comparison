@@ -8,12 +8,14 @@ import TravelTime from './TravelTime';
 import AbsenceGraph from './Absent';
 import Download from './Download';
 import GoOut from './GoOut';
+import ExtraPaidClassesGraph from './ExtraPaidClassesGraph';
 import {
     ButtonDropdown,
     DropdownToggle,
     DropdownItem,
     DropdownMenu,
 } from 'reactstrap';
+import AlcoholConsumption from './AlcoholConsumption.js';
 
 /* eslint-disable */
 class DataFetch extends Component {
@@ -44,16 +46,30 @@ class DataFetch extends Component {
             travelTimeStudentCount: {},
             absenceAverage: {},
             goOutAvg: {},
+            extraPaidClassesAvg: 0,
+            noExtraPaidClassesAvg: 0,
+            studentCountWithExtraPaidClasses: 0,
+            studentCountWithoutExtraPaidClasses: 0,
+            workdayAlcoholCount: {},
+            weekendAlcoholCount: {},
+            noAlcoholCount: {},
+            workDayAlcoholAvg: {},
+            weekendAlcoholAvg: {},
+            noAlcoholAvg: {},
+            alwaysAlcoholAvg: {},
         };
         this.internetAccess = this.internetAccess.bind(this);
         this.handleGraphChange = this.handleGraphChange.bind(this);
         this.checkPastFailures = this.checkPastFailures.bind(this);
         this.checkStudyTime = this.checkStudyTime.bind(this);
-        this.healthCorrelationToGrade = this.healthCorrelationToGrade.bind(this);
+        this.healthCorrelationToGrade =
+            this.healthCorrelationToGrade.bind(this);
         this.affectedByHealth = this.affectedByHealth.bind(this);
         this.travelTime = this.travelTime.bind(this);
         this.checkAbsences = this.checkAbsences.bind(this);
         this.goOutTest = this.goOutTest.bind(this);
+        this.extraPaidClasses = this.extraPaidClasses.bind(this);
+        this.alcoholConsumption = this.alcoholConsumption.bind(this);
     }
 
     componentDidMount() {
@@ -73,9 +89,10 @@ class DataFetch extends Component {
             _this.travelTime(queryArray);
             _this.checkAbsences(queryArray);
             _this.goOutTest(queryArray);
-        })
+            _this.extraPaidClasses(queryArray);
+            _this.alcoholConsumption(queryArray);
+        });
     }
-
 
     handleGraphChange(value) {
         this.setState({ activeGraphIndex: value });
@@ -83,7 +100,7 @@ class DataFetch extends Component {
 
     toggle = () => {
         this.setState({
-            dropdownOpen: !this.state.dropdownOpen
+            dropdownOpen: !this.state.dropdownOpen,
         });
     };
 
@@ -93,14 +110,12 @@ class DataFetch extends Component {
         const hasInternet = [];
 
         queryArray.forEach((item) => {
-            if (item.internet === '\"no\"') {
+            if (item.internet === '"no"') {
                 noInternet.push(item.G3);
             }
 
-            if (item.internet === '\"yes\"') {
+            if (item.internet === '"yes"') {
                 hasInternet.push(item.G3);
-
-
             }
         });
 
@@ -109,18 +124,10 @@ class DataFetch extends Component {
         const roundedGrade1 =
             Math.round((sumForNoInternet / noInternet.length) * 10) / 10;
 
-
         const sumForInternet = hasInternet.reduce(reducer);
-
-        console.log(`Sum for No Internet: ${sumForNoInternet}`);
-        console.log(`Sum for Internet: ${sumForInternet}`);
-
 
         const roundedGrade2 =
             Math.round((sumForInternet / hasInternet.length) * 10) / 10;
-
-        console.log(`Rounded Grade For No Internet: ${roundedGrade1}`);
-        console.log(`Rounded Grade for Has Internet: ${roundedGrade2}`);
 
         this.setState({
             noInternetAccessAvg: roundedGrade1,
@@ -146,41 +153,51 @@ class DataFetch extends Component {
                 g2Grade[item.failures] = [];
             }
             g2Grade[item.failures].push(item.G2);
-            // console.log(`Failures -> G2 using parseInt(): ${item.G2}`);
+
             if (g3Grade[item.failures] == null) {
                 g3Grade[item.failures] = [];
             }
             g3Grade[item.failures].push(item.G3);
         });
 
-        const b = g1Grade[0].map(i => {
-            return JSON.parse(i)});
-        // console.log(b)
+        const b = g1Grade[0].map((i) => {
+            return JSON.parse(i);
+        });
 
         const c = b.reduce((acc, i) => acc + parseInt(JSON.parse(i)), 0);
-        // console.log(c)
-
 
         for (const [key, value] of Object.entries(g1Grade)) {
-            const g1JSON = g1Grade[key].map(i => {
-                return JSON.parse(i)});
-            const sum = g1JSON.reduce((acc, i) => acc + parseInt(JSON.parse(i)), 0);
+            const g1JSON = g1Grade[key].map((i) => {
+                return JSON.parse(i);
+            });
+            const sum = g1JSON.reduce(
+                (acc, i) => acc + parseInt(JSON.parse(i)),
+                0,
+            );
             const average = sum / value.length;
             g1Grade[key] = Math.round(average * 10) / 10;
         }
 
         for (const [key, value] of Object.entries(g2Grade)) {
-            const g2JSON = g2Grade[key].map(i => {
-                return JSON.parse(i)});
-            const sum = g2JSON.reduce((acc, i) => acc + parseInt(JSON.parse(i)), 0);
+            const g2JSON = g2Grade[key].map((i) => {
+                return JSON.parse(i);
+            });
+            const sum = g2JSON.reduce(
+                (acc, i) => acc + parseInt(JSON.parse(i)),
+                0,
+            );
             const average = sum / value.length;
             g2Grade[key] = Math.round(average * 10) / 10;
         }
 
         for (const [key, value] of Object.entries(g3Grade)) {
-            const g3JSON = g3Grade[key].map(i => {
-                return JSON.parse(i)});
-            const sum = g3JSON.reduce((acc, i) => acc + parseInt(JSON.parse(i)), 0);
+            const g3JSON = g3Grade[key].map((i) => {
+                return JSON.parse(i);
+            });
+            const sum = g3JSON.reduce(
+                (acc, i) => acc + parseInt(JSON.parse(i)),
+                0,
+            );
             const average = sum / value.length;
             g3Grade[key] = Math.round(average * 10) / 10;
         }
@@ -241,7 +258,6 @@ class DataFetch extends Component {
         const finalGrade = {};
 
         queryArray.forEach((item) => {
-
             if (firstPeriodGrade[item.health] == null) {
                 firstPeriodGrade[item.health] = [];
             }
@@ -258,35 +274,45 @@ class DataFetch extends Component {
             finalGrade[item.health].push(item.G3);
         });
 
-
         for (const [key, value] of Object.entries(firstPeriodGrade)) {
-            const firstPeriodJSON = firstPeriodGrade[key].map(i => {
-                return JSON.parse(i)});
-            console.log(firstPeriodJSON);
-            const sum = firstPeriodJSON.reduce((acc, i) => acc + parseInt(JSON.parse(i)), 0);
-            // const sum = value.reduce((a, b) => a + b);
+            const firstPeriodJSON = firstPeriodGrade[key].map((i) => {
+                return JSON.parse(i);
+            });
+            // console.log(firstPeriodJSON);
+            const sum = firstPeriodJSON.reduce(
+                (acc, i) => acc + parseInt(JSON.parse(i)),
+                0,
+            );
+
             const average = sum / value.length;
             firstPeriodGrade[key] = Math.round(average * 100) / 100;
         }
 
         for (const [key, value] of Object.entries(secondPeriodGrade)) {
-            const secondPeriodJSON = secondPeriodGrade[key].map(i => {
-                return JSON.parse(i)});
-            const sum = secondPeriodJSON.reduce((acc, i) => acc + parseInt(JSON.parse(i)), 0);
-            // const sum = value.reduce((a, b) => a + b);
+            const secondPeriodJSON = secondPeriodGrade[key].map((i) => {
+                return JSON.parse(i);
+            });
+            const sum = secondPeriodJSON.reduce(
+                (acc, i) => acc + parseInt(JSON.parse(i)),
+                0,
+            );
+
             const average = sum / value.length;
-            // console.log(`2nd Period Grade Average: ${average}`);
+
             secondPeriodGrade[key] = Math.round(average * 100) / 100;
         }
 
         for (const [key, value] of Object.entries(finalGrade)) {
-            const finalGradeJSON = finalGrade[key].map(i => {
-                return JSON.parse(i)});
-            const sum = finalGradeJSON.reduce((acc, i) => acc + parseInt(JSON.parse(i)), 0);
-            // const sum = value.reduce((a, b) => a + b);
+            const finalGradeJSON = finalGrade[key].map((i) => {
+                return JSON.parse(i);
+            });
+            const sum = finalGradeJSON.reduce(
+                (acc, i) => acc + parseInt(JSON.parse(i)),
+                0,
+            );
+
             const average = sum / value.length;
             finalGrade[key] = Math.round(average * 100) / 100;
-            // console.log(`Key: ${key}, Value: ${value}`);
         }
 
         // console.log(`First Period Grade: ${firstPeriodGrade[1]}`);
@@ -297,6 +323,152 @@ class DataFetch extends Component {
             firstPeriodAverage: firstPeriodGrade,
             secondPeriodAverage: secondPeriodGrade,
             finalPeriodAverage: finalGrade,
+        });
+    }
+
+    alcoholConsumption(queryArray) {
+        // Grades based on workday alcohol consumption
+        const firstPeriodGradeDalc = {};
+        const secondPeriodGradeDalc = {};
+        const finalGradeDalc = {};
+
+        // Grades based on weekend alcohol consumption
+        const firstPeriodGradeWalc = {};
+        const secondPeriodGradeWalc = {};
+        const finalGradeWalc = {};
+
+        // Array generation for workday consumption
+        queryArray.forEach((item) => {
+            if (firstPeriodGradeDalc[item.Dalc] == null) {
+                firstPeriodGradeDalc[item.Dalc] = [];
+            }
+            firstPeriodGradeDalc[item.Dalc].push(item.G1);
+
+            if (secondPeriodGradeDalc[item.Dalc] == null) {
+                secondPeriodGradeDalc[item.Dalc] = [];
+            }
+            secondPeriodGradeDalc[item.Dalc].push(item.G2);
+
+            if (finalGradeDalc[item.Dalc] == null) {
+                finalGradeDalc[item.Dalc] = [];
+            }
+            finalGradeDalc[item.Dalc].push(item.G3);
+        });
+
+        // Array generation for weekend consumption
+        queryArray.forEach((item) => {
+            if (firstPeriodGradeWalc[item.Walc] == null) {
+                firstPeriodGradeWalc[item.Walc] = [];
+            }
+            firstPeriodGradeWalc[item.Walc].push(item.G1);
+
+            if (secondPeriodGradeWalc[item.Walc] == null) {
+                secondPeriodGradeWalc[item.Walc] = [];
+            }
+            secondPeriodGradeWalc[item.Walc].push(item.G2);
+
+            if (finalGradeWalc[item.Walc] == null) {
+                finalGradeWalc[item.Walc] = [];
+            }
+            finalGradeWalc[item.Walc].push(item.G3);
+        });
+
+        for (const [key, value] of Object.entries(firstPeriodGradeDalc)) {
+            const firstPeriodDalcJSON = firstPeriodGradeDalc[key].map((i) => {
+                return JSON.parse(i);
+            });
+            // console.log(firstPeriodDalcJSON);
+            const sum = firstPeriodDalcJSON.reduce(
+                (acc, i) => acc + parseInt(JSON.parse(i)),
+                0,
+            );
+
+            const average = sum / value.length;
+            firstPeriodGradeDalc[key] = Math.round(average * 100) / 100;
+        }
+
+        for (const [key, value] of Object.entries(secondPeriodGradeDalc)) {
+            const secondPeriodDalcJSON = secondPeriodGradeDalc[key].map((i) => {
+                return JSON.parse(i);
+            });
+            // console.log(secondPeriodDalcJSON);
+            const sum = secondPeriodDalcJSON.reduce(
+                (acc, i) => acc + parseInt(JSON.parse(i)),
+                0,
+            );
+
+            const average = sum / value.length;
+            secondPeriodGradeDalc[key] = Math.round(average * 100) / 100;
+        }
+
+        for (const [key, value] of Object.entries(finalGradeDalc)) {
+            const finalDalcJSON = finalGradeDalc[key].map((i) => {
+                return JSON.parse(i);
+            });
+            // console.log(finalDalcJSON);
+            const sum = finalDalcJSON.reduce(
+                (acc, i) => acc + parseInt(JSON.parse(i)),
+                0,
+            );
+
+            const average = sum / value.length;
+            finalGradeDalc[key] = Math.round(average * 100) / 100;
+        }
+
+        for (const [key, value] of Object.entries(firstPeriodGradeWalc)) {
+            const firstPeriodWalcJSON = firstPeriodGradeWalc[key].map((i) => {
+                return JSON.parse(i);
+            });
+            // console.log(firstPeriodWalcJSON);
+            const sum = firstPeriodWalcJSON.reduce(
+                (acc, i) => acc + parseInt(JSON.parse(i)),
+                0,
+            );
+
+            const average = sum / value.length;
+            firstPeriodGradeWalc[key] = Math.round(average * 100) / 100;
+        }
+
+        for (const [key, value] of Object.entries(secondPeriodGradeWalc)) {
+            const secondPeriodWalcJSON = secondPeriodGradeWalc[key].map((i) => {
+                return JSON.parse(i);
+            });
+            // console.log(secondPeriodWalcJSON);
+            const sum = secondPeriodWalcJSON.reduce(
+                (acc, i) => acc + parseInt(JSON.parse(i)),
+                0,
+            );
+
+            const average = sum / value.length;
+            secondPeriodGradeWalc[key] = Math.round(average * 100) / 100;
+        }
+
+        for (const [key, value] of Object.entries(finalGradeWalc)) {
+            const finalWalcJSON = finalGradeWalc[key].map((i) => {
+                return JSON.parse(i);
+            });
+            // console.log(finalWalcJSON);
+            const sum = finalWalcJSON.reduce(
+                (acc, i) => acc + parseInt(JSON.parse(i)),
+                0,
+            );
+
+            const average = sum / value.length;
+            finalGradeWalc[key] = Math.round(average * 100) / 100;
+        }
+
+        // console.log(`First Period Grade: ${firstPeriodGrade[1]}`);
+        // console.log(`Second Period Grade: ${secondPeriodGrade[1]}`);
+        // console.log(`Final Grade: ${finalGrade[1]}`);
+
+        this.setState({
+            firstPeriodAverageDalc: firstPeriodGradeDalc,
+            secondPeriodAverageDalc: secondPeriodGradeDalc,
+            finalPeriodAverageDalc: finalGradeDalc,
+
+            firstPeriodAverageWalc: firstPeriodGradeWalc,
+            secondPeriodAverageWalc: secondPeriodGradeWalc,
+            finalPeriodAverageWalc: finalGradeWalc,
         });
     }
 
@@ -357,25 +529,37 @@ class DataFetch extends Component {
         });
 
         for (const [key, value] of Object.entries(g1Grade)) {
-            const g1GradeJSON = g1Grade[key].map(i => {
-                return JSON.parse(i)});
-            const sum = g1GradeJSON.reduce((acc, i) => acc + parseInt(JSON.parse(i)), 0);
+            const g1GradeJSON = g1Grade[key].map((i) => {
+                return JSON.parse(i);
+            });
+            const sum = g1GradeJSON.reduce(
+                (acc, i) => acc + parseInt(JSON.parse(i)),
+                0,
+            );
             const average = sum / value.length;
             g1Grade[key] = Math.round(average * 100) / 100;
         }
 
         for (const [key, value] of Object.entries(g2Grade)) {
-            const g2GradeJSON = g2Grade[key].map(i => {
-                return JSON.parse(i)});
-            const sum = g2GradeJSON.reduce((acc, i) => acc + parseInt(JSON.parse(i)), 0);
+            const g2GradeJSON = g2Grade[key].map((i) => {
+                return JSON.parse(i);
+            });
+            const sum = g2GradeJSON.reduce(
+                (acc, i) => acc + parseInt(JSON.parse(i)),
+                0,
+            );
             const average = sum / value.length;
             g2Grade[key] = Math.round(average * 100) / 100;
         }
 
         for (const [key, value] of Object.entries(g3Grade)) {
-            const g3GradeJSON = g3Grade[key].map(i => {
-                return JSON.parse(i)});
-            const sum = g3GradeJSON.reduce((acc, i) => acc + parseInt(JSON.parse(i)), 0);
+            const g3GradeJSON = g3Grade[key].map((i) => {
+                return JSON.parse(i);
+            });
+            const sum = g3GradeJSON.reduce(
+                (acc, i) => acc + parseInt(JSON.parse(i)),
+                0,
+            );
             const average = sum / value.length;
             g3Grade[key] = Math.round(average * 100) / 100;
         }
@@ -434,19 +618,72 @@ class DataFetch extends Component {
         this.setState({ goOutAvg: goOutGrade });
     }
 
+    extraPaidClasses(queryArray) {
+        const reducer = (a, b) => parseInt(a) + parseInt(b);
+        const extraPaidClasses = [];
+        const noExtraPaidClasses = [];
+
+        queryArray.forEach((item) => {
+            if (item.paid === '"yes"') {
+                extraPaidClasses.push(item.G3);
+            }
+
+            if (item.paid === '"no"') {
+                noExtraPaidClasses.push(item.G3);
+            }
+        });
+
+        const sumForExtraPaidClasses = extraPaidClasses.reduce(reducer);
+
+        const roundedGrade1 =
+            Math.round(
+                (sumForExtraPaidClasses / extraPaidClasses.length) * 10,
+            ) / 10;
+        console.log(extraPaidClasses);
+
+        const sumForNoExtraPaidClasses = noExtraPaidClasses.reduce(reducer);
+
+        const roundedGrade2 =
+            Math.round(
+                (sumForNoExtraPaidClasses / noExtraPaidClasses.length) * 10,
+            ) / 10;
+
+        this.setState({
+            extraPaidClassesAvg: roundedGrade1,
+            studentCountWithExtraPaidClasses: extraPaidClasses.length,
+            noExtraPaidClassesAvg: roundedGrade2,
+            studentCountWithoutExtraPaidClasses: noExtraPaidClasses.length,
+        });
+    }
+
     render() {
         const graphs = [
             {
                 name: 'Internet Access',
                 component: (
                     <InternetGraph
+                        accessAvg={this.state.internetAccessAvg}
+                        studentCountWithAccess={
+                            this.state.studentCountWithAccess
+                        }
                         noAccessAvg={this.state.noInternetAccessAvg}
                         studentCountWithoutAccess={
                             this.state.studentCountWithoutAccess
                         }
-                        accessAvg={this.state.internetAccessAvg}
-                        studentCountWithAccess={
-                            this.state.studentCountWithAccess
+                    />
+                ),
+            },
+            {
+                name: 'Extra Paid Classes',
+                component: (
+                    <ExtraPaidClassesGraph
+                        extraPaidClassesAvg={this.state.extraPaidClassesAvg}
+                        studentCountWithExtraPaidClasses={
+                            this.state.studentCountWithExtraPaidClasses
+                        }
+                        noExtraPaidClassesAvg={this.state.noExtraPaidClassesAvg}
+                        studentCountWithoutExtraPaidClasses={
+                            this.state.studentCountWithoutExtraPaidClasses
                         }
                     />
                 ),
@@ -468,6 +705,19 @@ class DataFetch extends Component {
                     <StudyTime
                         studyTimeGrade={this.state.avgGradeForStudyTime}
                         studentCount={this.state.studentCountForStudyTime}
+                    />
+                ),
+            },
+            {
+                name: 'Alcohol Consumption',
+                component: (
+                    <AlcoholConsumption
+                        g1AverageDalc={this.state.firstPeriodAverageDalc}
+                        g2AverageDalc={this.state.secondPeriodAverageDalc}
+                        g3AverageDalc={this.state.finalPeriodAverageDalc}
+                        g1AverageWalc={this.state.firstPeriodAverageWalc}
+                        g2AverageWalc={this.state.secondPeriodAverageWalc}
+                        g3AverageWalc={this.state.finalPeriodAverageWalc}
                     />
                 ),
             },
@@ -509,21 +759,6 @@ class DataFetch extends Component {
 
         return (
             <div>
-                <Download
-                    noAccessAvg={this.state.noInternetAccessAvg}
-                    studentCountWithoutAccess={
-                        this.state.studentCountWithoutAccess
-                    }
-                    accessAvg={this.state.internetAccessAvg}
-                    studentCountWithAccess={this.state.studentCountWithAccess}
-                    g1Grade={this.state.g1GradeFailure}
-                    g2Grade={this.state.g2GradeFailure}
-                    g3Grade={this.state.g3GradeFailure}
-                    studentCount={this.state.studentCountForPastFailure}
-                />
-                <section>
-                    {activeGraphIndex >= 0 ? activeGraph.component : ''}
-                </section>
                 <ButtonDropdown
                     isOpen={this.state.dropdownOpen}
                     toggle={this.toggle}
@@ -541,6 +776,21 @@ class DataFetch extends Component {
                         ))}
                     </DropdownMenu>
                 </ButtonDropdown>
+                <Download
+                    noAccessAvg={this.state.noInternetAccessAvg}
+                    studentCountWithoutAccess={
+                        this.state.studentCountWithoutAccess
+                    }
+                    accessAvg={this.state.internetAccessAvg}
+                    studentCountWithAccess={this.state.studentCountWithAccess}
+                    g1Grade={this.state.g1GradeFailure}
+                    g2Grade={this.state.g2GradeFailure}
+                    g3Grade={this.state.g3GradeFailure}
+                    studentCount={this.state.studentCountForPastFailure}
+                />
+                <section>
+                    {activeGraphIndex >= 0 ? activeGraph.component : ''}
+                </section>
             </div>
         );
     }

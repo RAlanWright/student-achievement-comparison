@@ -11,22 +11,22 @@ import {
 } from 'recharts';
 import { Container, Col, Row } from 'reactstrap';
 
-const InternetGraph = (props) => {
+const ExtraPaidClassesGraph = (props) => {
     const data = [
         {
-            name: 'Internet Access',
-            averageWithInternet: props.accessAvg,
-            showAccess: props.accessAvg,
+            name: 'Extra Paid Classes',
+            averageWithExtraPaidClasses: props.extraPaidClassesAvg,
+            showExtraPaidClasses: props.extraPaidClassesAvg,
         },
         {
-            name: 'No Internet Access',
-            averageWithoutInternet: props.noAccessAvg,
-            showNoAccess: props.noAccessAvg,
+            name: 'No Extra Paid Classes',
+            averageWithoutExtraPaidClasses: props.noExtraPaidClassesAvg,
+            showNoExtraPaidClasses: props.noExtraPaidClassesAvg,
         },
         {
             name: 'Comparison',
-            averageWithInternet: props.accessAvg,
-            averageWithoutInternet: props.noAccessAvg,
+            averageWithExtraPaidClasses: props.extraPaidClassesAvg,
+            averageWithoutExtraPaidClasses: props.noExtraPaidClassesAvg,
         },
     ];
 
@@ -35,10 +35,10 @@ const InternetGraph = (props) => {
             <Container className="d-flex justify-content-center">
                 <Row>
                     <Col>
-                        <h3 className="title-center">Internet Access</h3>
+                        <h3 className="title-center">Extra Paid Classes</h3>
                         <BarChart
                             width={1000}
-                            height={500}
+                            height={450}
                             data={data}
                             margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
                             style={{ fontSize: 20 }}
@@ -57,32 +57,31 @@ const InternetGraph = (props) => {
                             <Legend />
                             <Bar
                                 name={
-                                    props.studentCountWithoutAccess +
-                                    ' students w/o internet'
+                                    props.studentCountWithExtraPaidClasses +
+                                    ' students w/ extra paid classes'
                                 }
-                                dataKey="averageWithoutInternet"
+                                dataKey="averageWithExtraPaidClasses"
                                 stackId="a"
                                 fill="#7DAB24"
                                 background={{ fill: '#eee' }}
                                 barSize={80}
                             >
                                 <LabelList
-                                    dataKey="showNoAccess"
+                                    dataKey="showExtraPaidClasses"
                                     position="top"
                                 />
                             </Bar>
-
                             <Bar
                                 name={
-                                    props.studentCountWithAccess +
-                                    ' students w/ internet'
+                                    props.studentCountWithoutExtraPaidClasses +
+                                    ' students w/o extra paid classes'
                                 }
-                                dataKey="averageWithInternet"
+                                dataKey="averageWithoutExtraPaidClasses"
                                 stackId="a"
                                 fill="#141213"
                             >
                                 <LabelList
-                                    dataKey="showAccess"
+                                    dataKey="showNoExtraPaidClasses"
                                     position="top"
                                 />
                             </Bar>
@@ -94,4 +93,4 @@ const InternetGraph = (props) => {
     );
 };
 
-export default InternetGraph;
+export default ExtraPaidClassesGraph;

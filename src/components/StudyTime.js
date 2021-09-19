@@ -33,6 +33,7 @@ const StudyTime = (props) => {
         <Container className="d-flex justify-content-center">
             <Row>
                 <Col>
+                    <h3 className="title-center">Study Time</h3>
                     <PieChart width={730} height={250} style={{ fontSize: 25 }}>
                         <Pie
                             data={data}

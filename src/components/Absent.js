@@ -20,17 +20,18 @@ const AbsenceGraph = (props) => {
         <Container className="d-flex justify-content-center">
             <Row>
                 <Col>
+                    <h3 className="title-center">Absence Correlation</h3>
                     <ScatterChart
                         width={1300}
                         height={500}
-                        margin={{ top: 20, right: 20, bottom: 20, left: 20 }}
+                        margin={{ top: 20, right: 20, bottom: 30, left: 20 }}
                         style={{ fontSize: 20 }}
                     >
                         <CartesianGrid />
                         <XAxis dataKey={'name'} name="absences">
                             <Label
                                 value="absences"
-                                offset={0}
+                                offset={2}
                                 position="bottom"
                                 style={{ fontSize: 25 }}
                             />
