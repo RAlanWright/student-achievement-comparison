@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import ReactDOM from 'react-dom';
 import { Container, Row, Col } from 'reactstrap';
 import DataFetch from './components/DataFetch';
